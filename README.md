@@ -1,6 +1,9 @@
 # ZMQInterface
 
 A plugin for open-ephys enabling the interfacing of [ZeroMQ](http://zeromq.org) clients to open ephys. 
+
+Forked from [Francesco Battaglia's github repository](https://github.com/MemDynLab/ZMQInterface).
+
 The interface exposes all data and events and allows to provide events to the application, enabling the creation of advanced visualization and monitoring add-ons.
 
 A tutorial on how to write a python module will follow soon, however, the code in the examples under the `python_clients` directory may serve as good guidance for now. Note that the application may be written in any language/platform supporting ZeroMQ.
@@ -36,6 +39,10 @@ The rest of the procedure is system dependent
 - With a different Python distribution: in the same file, edit `HEADER_SEARCH_PATHS` and `LIBRARY_SEARCH_PATHS` to the proper places so that ZeroMQ may be found. 
 - Open `Builds/MacOS/PythonPlugin.xcodeproj` in XCode and compile
 
+####Windows
+
+- Visual Studio 2013 project files provided.
+- Expects a `github-plugin-GUI` folder on the same level as the `zmqinterface_oeplugin` with an already compiled `open-ephys.lib`.
 
 ### Binary installation 
 A binary installation (Linux only for the time being) is provided [here](https://github.com/fpbattaglia/ZMQInterface-linux-binaries)
