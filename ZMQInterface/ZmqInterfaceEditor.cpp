@@ -151,8 +151,19 @@ ZmqInterfaceEditor::ZmqInterfaceEditor(GenericProcessor *parentNode, bool useDef
     listBox = new ZmqInterfaceEditorListBox(String("no app connected"), this);
     listBox->setBounds(2,25,130,105);
     addAndMakeVisible(listBox);
+
+    dataPortEditor = new TextEditor("dataport");
+    addAndMakeVisible(dataPortEditor);
+    dataPortEditor->setBounds(10, 110, 40, 16);
+    dataPortEditor->setText(String(ZmqProcessor->getDataPort()));
+
+	portButton = new TextButton("set_ports");
+    addAndMakeVisible(portButton);
+    portButton->setBounds(90, 110, 40, 16);
+    portButton->setButtonText("set ports");
+    portButton->addListener(this);
+
     setEnabledState(false);
-    
 }
 
 ZmqInterfaceEditor::~ZmqInterfaceEditor()
@@ -162,12 +173,12 @@ ZmqInterfaceEditor::~ZmqInterfaceEditor()
 
 void ZmqInterfaceEditor::saveCustomParameters(XmlElement *xml)
 {
-    
+    // todo: ports    
 }
 
 void ZmqInterfaceEditor::loadCustomParameters(XmlElement* xml)
 {
-    
+    // todo: ports
 }
 
 void ZmqInterfaceEditor::refreshListAsync()
@@ -182,3 +193,19 @@ OwnedArray<ZmqApplication> *ZmqInterfaceEditor::getApplicationList()
     
 }
 
+void ZmqInterfaceEditor::buttonClicked(Button* button)
+{
+    if (button == portButton)
+    {
+        String dport = dataPortEditor->getText();
+        int dportVal = dport.getIntValue();
+        if ( (dportVal == 0) && !dport.containsOnly("0")) {
+            // wrong integer input
+            CoreServices::sendStatusMessage("Invalid data port value");
+            dataPortEditor->setText(String(ZmqProcessor->getDataPort()));
+        } else {
+            ZmqProcessor->setPorts(dportVal, dportVal + 1);
+            CoreServices::sendStatusMessage("ZMQ ports updated");
+        }
+    }
+}

@@ -52,11 +52,13 @@ public:
     void saveCustomParameters(XmlElement *xml);
     void loadCustomParameters(XmlElement* xml);
     void refreshListAsync();
-    
-    
+    void setPorts(uint32_t dataPort, uint32_t listenPort, void callback());
+    void buttonClicked(Button* button) override;
 private:
     //TODO UI components
     class ZmqInterfaceEditorListBox;
+    TextEditor *dataPortEditor, *listenPortEditor;
+    TextButton *portButton;
     OwnedArray<ZmqApplication> *getApplicationList();
     ZmqInterface *ZmqProcessor;
     ZmqInterfaceEditorListBox *listBox;

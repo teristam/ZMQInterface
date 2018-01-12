@@ -44,6 +44,7 @@
 #include "ZmqInterfaceEditor.h"
 
 #define DEBUG_ZMQ
+#define ZMQ_DEBUG
 const int MAX_MESSAGE_LENGTH = 64000;
 
 struct EventData {
@@ -382,7 +383,7 @@ int ZmqInterface::sendData(float *data, int nChannels, int nSamples, int nRealSa
     size = zmq_msg_send(&messageHeader, socket, ZMQ_SNDMORE);
     jassert(size != -1);
     zmq_msg_close(&messageHeader);
-    // std::cout << "size: " << size << std::endl;
+    //std::cout << "size: " << size << std::endl;
     
     zmq_msg_t message;
     zmq_msg_init_size(&message, sizeof(float)*nSamples*nChannels);
@@ -391,7 +392,21 @@ int ZmqInterface::sendData(float *data, int nChannels, int nSamples, int nRealSa
     jassert(size_m);
     size += size_m;
     zmq_msg_close(&message);
- 
+
+#if 0 // stats
+    static uint32_t msgSizeSum = 0;
+    static uint32_t msgCnt = 0;
+    static DWORD lastTick = 0;	
+    msgSizeSum += size_m;
+    msgCnt++;
+    if (GetTickCount() - lastTick > 1000) {
+        std::cout << "msg/s:" << msgCnt << " avg size: " << (uint32_t)(msgSizeSum / msgCnt) << " datasize: " << msgSizeSum << std::endl;
+        lastTick = GetTickCount();
+        msgSizeSum = 0;
+        msgCnt = 0;
+    }
+#endif 
+
     return size;
 }
 
@@ -476,7 +491,7 @@ int ZmqInterface::sendEvent( uint8 type,
     int size;
     
     messageNumber++;
-    
+    //OutputDebugString(L"THIS LINE WAS HIT!\n");
     DynamicObject::Ptr obj = new DynamicObject();
     
     obj->setProperty("message_no", messageNumber);
@@ -490,8 +505,20 @@ int ZmqInterface::sendEvent( uint8 type,
     obj->setProperty("content", var(c_obj));
     obj->setProperty("data_size", numBytes);
     
+    //if (type == TTL)
+    //    std::cout << "TTL sent @ " << eventTime << std::endl;
+
     var json (obj);
     String s = JSON::toString(json);
+    
+    //static int cnt = 0;
+    //cnt = (cnt + 1) % 100;
+
+    //if (type == TTL)
+    //    std::cout << "TTL msg: " << s << std::endl;
+    //if (cnt == 0)
+    //    std::cout << "Evt msg: " << s << std::endl;
+
     void *headerData = (void *)s.toRawUTF8();
     size_t headerSize = s.length();
     
@@ -625,7 +652,7 @@ void ZmqInterface::handleEvent(int eventType, MidiMessage& event, int sampleNum)
         numBytes = 0;
     int eventId = *(dataptr+2);
     int eventChannel = *(dataptr+3);
-    
+
     if(eventType == SPIKE)
         sendSpikeEvent(event);
     else
@@ -748,4 +775,16 @@ void ZmqInterface::updateSettings()
     
 }
 
-
+void ZmqInterface::setPorts(uint32_t newDataPort, uint32_t newListenPort)
+{
+    if (dataPort != newDataPort) {
+        closeDataSocket();
+        dataPort = newDataPort;
+        createDataSocket();
+    }
+    if (listenPort != newListenPort) {
+        closeListenSocket();
+        listenPort = newListenPort;
+        openListenSocket();
+    }
+}

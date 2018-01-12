@@ -115,8 +115,9 @@ public:
     bool threadRunning ;
     // TODO void setNewListeningPort(int port);
 
-    
-    
+    void setPorts(uint32_t newDataPort, uint32_t newListenPort);
+    uint32_t getDataPort () const { return dataPort; }
+    uint32_t getListenPort () const { return listenPort; }
 private:
     int createContext();
     void openListenSocket();
