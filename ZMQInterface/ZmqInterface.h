@@ -86,7 +86,8 @@ public:
      number of continous samples in the current buffer (which may differ from the
      size of the buffer).
      */
-    virtual void process(AudioSampleBuffer& buffer, MidiBuffer& events);
+    //virtual void process(AudioSampleBuffer& buffer, MidiBuffer& events);
+    virtual void process(AudioSampleBuffer& continuousBuffer);
     
     /** Any variables used by the "process" function _must_ be modified only through
      this method while data acquisition is active. If they are modified in any
@@ -114,10 +115,12 @@ public:
 
     bool threadRunning ;
     // TODO void setNewListeningPort(int port);
-
+#if 0
     void setPorts(uint32_t newDataPort, uint32_t newListenPort);
     uint32_t getDataPort () const { return dataPort; }
     uint32_t getListenPort () const { return listenPort; }
+#endif
+
 private:
     int createContext();
     void openListenSocket();
@@ -127,15 +130,17 @@ private:
     int createDataSocket();
     int closeDataSocket();
 
-    void handleEvent(int eventType, MidiMessage& event, int sampleNum);
-    int sendData(float *data, int nChannels, int nSamples, int nRealSamples);
+    void handleEvent(const EventChannel* eventInfo, const MidiMessage& event, int samplePosition);
+    void handleSpike(const SpikeChannel* spikeInfo, const MidiMessage& event, int samplePosition);
+    int sendData(float *data, int nChannels, int nSamples, int nRealSamples, int64 timestamp);
     int sendEvent( uint8 type,
                   int sampleNum,
                   uint8 eventId,
                   uint8 eventChannel,
                   uint8 numBytes,
-                  const uint8* eventData);
-    int sendSpikeEvent(MidiMessage &event);
+                  const uint8* eventData,
+                  int64 timestamp);
+    int sendSpikeEvent(const SpikeChannel* spikeInfo, const MidiMessage &event);
     
     int receiveEvents(MidiBuffer &events);
     void checkForApplications();
@@ -143,21 +148,21 @@ private:
     template<typename T> int sendParam(String name, T value);
 
     
-    void *context = 0;
-    void *socket = 0;
-    void *listenSocket = 0;
-    void *controlSocket = 0;
-    void *killSocket = 0;
-    void *pipeInSocket = 0;
-    void *pipeOutSocket = 0;
+    void *context;
+    void *socket;
+    void *listenSocket;
+    void *controlSocket;
+    void *killSocket;
+    void *pipeInSocket;
+    void *pipeOutSocket;
     
     
     OwnedArray<ZmqApplication> applications;
     
-    int flag = 0;
-    int messageNumber = 0;
-    int dataPort = 5556; //TODO make this editable
-    int listenPort = 5557;
+    int flag;
+    int messageNumber;
+    int dataPort; //TODO make this editable
+    int listenPort;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ZmqInterface);
     
 };

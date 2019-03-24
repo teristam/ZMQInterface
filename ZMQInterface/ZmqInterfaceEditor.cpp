@@ -151,7 +151,7 @@ ZmqInterfaceEditor::ZmqInterfaceEditor(GenericProcessor *parentNode, bool useDef
     listBox = new ZmqInterfaceEditorListBox(String("no app connected"), this);
     listBox->setBounds(2,25,130,105);
     addAndMakeVisible(listBox);
-
+#if 0
     dataPortEditor = new TextEditor("dataport");
     addAndMakeVisible(dataPortEditor);
     dataPortEditor->setBounds(10, 110, 40, 16);
@@ -162,7 +162,7 @@ ZmqInterfaceEditor::ZmqInterfaceEditor(GenericProcessor *parentNode, bool useDef
     portButton->setBounds(90, 110, 40, 16);
     portButton->setButtonText("set ports");
     portButton->addListener(this);
-
+#endif
     setEnabledState(false);
 }
 
@@ -193,6 +193,7 @@ OwnedArray<ZmqApplication> *ZmqInterfaceEditor::getApplicationList()
     
 }
 
+#if 0
 void ZmqInterfaceEditor::buttonClicked(Button* button)
 {
     if (button == portButton)
@@ -209,3 +210,5 @@ void ZmqInterfaceEditor::buttonClicked(Button* button)
         }
     }
 }
+#endif
+
