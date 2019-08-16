@@ -6,11 +6,11 @@ Forked from [Francesco Battaglia's github repository](https://github.com/MemDynL
 
 The interface exposes all data and events and allows to provide events to the application, enabling the creation of advanced visualization and monitoring add-ons.
 
-A tutorial on how to write a python module will follow soon, however, the code in the examples under the `python_clients` directory may serve as good guidance for now. Note that the application may be written in any language/platform supporting ZeroMQ.
+The code in the examples under the `python_clients` directory may serve as tutorial for now. Note that the application may be written in any language/platform supporting ZeroMQ.
 
 ## Installation Instruction
 
-At the moment, the plugin is compatible with the Linux and MacOSX versions of Open Ephys. I don't have Windows development expertise, so I will not port it to Windows myseld. If you are interested in porting it to Windows, this is probably a fairly simple task for an experienced developer. Please do contact me, and I will support the port as far as I can. 
+The original plugin is compatible with the Linux and MacOSX versions of Open Ephys. The plugin was ported to Visual Studio/Windows and updated in 2018-2019 to a current Open Ephys version with modified plugin architecture. Some features were disabled during the process.
 
 ### Compile from source code
 
