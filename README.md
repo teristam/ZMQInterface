@@ -29,17 +29,17 @@ etc...
 
 The rest of the procedure is system dependent
 
-####Linux 
+#### Linux 
 - edit `build-linux.sh` to change `ZMQ_PREFIX` to the location where ZeroMQ is installed 
 - `cd PythonPlugin`
 - run `./build-linux.sh`. The Plugin should be copied to the neighboring plugin-GUI source tree. 
 
-####MacOSX
+#### MacOSX
 
 - With a different Python distribution: in the same file, edit `HEADER_SEARCH_PATHS` and `LIBRARY_SEARCH_PATHS` to the proper places so that ZeroMQ may be found. 
 - Open `Builds/MacOS/PythonPlugin.xcodeproj` in XCode and compile
 
-####Windows
+#### Windows
 
 - Visual Studio 2013 project files provided.
 - Expects a `github-plugin-GUI` folder on the same level as the `zmqinterface_oeplugin` with an already compiled `open-ephys.lib`.
