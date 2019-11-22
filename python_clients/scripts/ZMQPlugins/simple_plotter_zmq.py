@@ -45,7 +45,7 @@ class SimplePlotter(PlotProcess):
         self.figure, self.ax = plt.subplots()
         plt.subplots_adjust(left=0.1, bottom=0.2)
         axcolor = 'lightgoldenrodyellow'
-        axylim = plt.axes([0.1, 0.05, 0.65, 0.03], axisbg=axcolor)
+        axylim = plt.axes([0.1, 0.05, 0.65, 0.03], facecolor=axcolor)
         sylim = Slider(axylim, 'Ylim', 1, 600, valinit=ylim0)
 
         # noinspection PyUnusedLocal
