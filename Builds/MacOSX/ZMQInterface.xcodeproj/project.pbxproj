@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B496C2082388A68A00033158 /* OpenEphysLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B496C2072388A68A00033158 /* OpenEphysLib.cpp */; };
 		F700B0081D5E1B0C00C56CC4 /* Plugin_Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F700B0051D5E1B0C00C56CC4 /* Plugin_Debug.xcconfig */; };
 		F700B0091D5E1B0C00C56CC4 /* Plugin_Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F700B0061D5E1B0C00C56CC4 /* Plugin_Release.xcconfig */; };
 		F700B00A1D5E1B0C00C56CC4 /* Plugin.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F700B0071D5E1B0C00C56CC4 /* Plugin.xcconfig */; };
 		F700B00F1D5E1CE400C56CC4 /* ZmqInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F700B00B1D5E1CE400C56CC4 /* ZmqInterface.cpp */; };
 		F700B0101D5E1CE400C56CC4 /* ZmqInterfaceEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F700B00D1D5E1CE400C56CC4 /* ZmqInterfaceEditor.cpp */; };
-		F700B0131D5E286D00C56CC4 /* OpenEphysLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F700B0121D5E286D00C56CC4 /* OpenEphysLib.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B496C2072388A68A00033158 /* OpenEphysLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OpenEphysLib.cpp; path = ../../ZMQInterface/OpenEphysLib.cpp; sourceTree = "<group>"; };
 		F700B0051D5E1B0C00C56CC4 /* Plugin_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Plugin_Debug.xcconfig; path = Config/Plugin_Debug.xcconfig; sourceTree = "<group>"; };
 		F700B0061D5E1B0C00C56CC4 /* Plugin_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Plugin_Release.xcconfig; path = Config/Plugin_Release.xcconfig; sourceTree = "<group>"; };
 		F700B0071D5E1B0C00C56CC4 /* Plugin.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Plugin.xcconfig; path = Config/Plugin.xcconfig; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 		F7F7D1821D5E181500DCF6CF = {
 			isa = PBXGroup;
 			children = (
+				B496C2072388A68A00033158 /* OpenEphysLib.cpp */,
 				F700B0041D5E1AF500C56CC4 /* Config */,
 				F7F7D18D1D5E181500DCF6CF /* ZMQInterface */,
 				F7F7D18C1D5E181500DCF6CF /* Products */,
@@ -119,6 +121,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F7F7D1821D5E181500DCF6CF;
@@ -156,7 +159,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -R ~/src/ZMQInterface/Builds/MacOSX/build/Debug/open-ephys.app/Contents/PlugIns/ZMQInterface.bundle ~/src/plugin-GUI/Builds/MacOSX/build/Debug/open-ephys.app/Contents/PlugIns";
+			shellScript = "cp -R ./build/Debug/open-ephys.app/Contents/PlugIns/ZMQInterface.bundle  $OPENEPHYS_SOURCE_DIR/Build/Debug/open-ephys.app/Contents/PlugIns\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -165,7 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F700B0131D5E286D00C56CC4 /* OpenEphysLib.cpp in Sources */,
+				B496C2082388A68A00033158 /* OpenEphysLib.cpp in Sources */,
 				F700B00F1D5E1CE400C56CC4 /* ZmqInterface.cpp in Sources */,
 				F700B0101D5E1CE400C56CC4 /* ZmqInterfaceEditor.cpp in Sources */,
 			);
@@ -213,6 +216,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OPENEPHYS_SOURCE_DIR)/Source/Plugins/Headers",
+					"$(ZMQ_HEADERS_DIR)",
+					"$(inherited)",
+					"$(OPENEPHYS_SOURCE_DIR)/JuceLibraryCode/**",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -253,6 +262,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OPENEPHYS_SOURCE_DIR)/Source/Plugins/Headers",
+					"$(ZMQ_HEADERS_DIR)",
+					"$(inherited)",
+					"$(OPENEPHYS_SOURCE_DIR)/JuceLibraryCode/**",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -263,6 +278,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OPENEPHYS_SOURCE_DIR)/Plugins/Headers",
+					"$(ZMQ_HEADERS_DIR)",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = ZMQInterface/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.battaglia.ZMQInterface;
@@ -276,6 +296,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OPENEPHYS_SOURCE_DIR)/Plugins/Headers",
+					"$(ZMQ_HEADERS_DIR)",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = ZMQInterface/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.battaglia.ZMQInterface;
