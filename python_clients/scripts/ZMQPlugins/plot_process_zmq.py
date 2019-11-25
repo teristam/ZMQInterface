@@ -146,7 +146,7 @@ class PlotProcess(object):  # TODO more configuration stuff that may be obtained
         # send every two seconds a "heartbeat" so that Open Ephys knows we're alive
 
         if self.isTesting:
-            if np.random.random() < 0.005:
+            if np.random.random() < 0.05:
                 self.send_event(event_type=3, sample_num=0, event_id=self.event_no, event_channel=1)
 
         while True:
