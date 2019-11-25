@@ -36,7 +36,7 @@ The rest of the procedure is system dependent
 
 #### MacOSX
 
-- With a different Python distribution: in the same file, edit `HEADER_SEARCH_PATHS` and `LIBRARY_SEARCH_PATHS` to the proper places so that ZeroMQ may be found. 
+- In the same file, edit `HEADER_SEARCH_PATHS` and `LIBRARY_SEARCH_PATHS` to the proper places so that ZeroMQ may be found. 
 - Open `Builds/MacOS/PythonPlugin.xcodeproj` in XCode and compile
 
 #### Windows
